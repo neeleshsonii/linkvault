@@ -1,7 +1,7 @@
 import { initializeApp }        from 'firebase/app'
 import { getAuth,
          GoogleAuthProvider,
-         signInWithPopup }      from 'firebase/auth'
+         signInWithRedirect }      from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey:            "AIzaSyCY6dWqOPw7lAyQNvakne0To_Emfb6BbW8",
@@ -19,7 +19,7 @@ export const googleProvider = new GoogleAuthProvider()
 googleProvider.setCustomParameters({ prompt: 'select_account' })
 
 export const loginWithGoogle = async () => {
-  const result = await signInWithPopup(auth, googleProvider)
+  const result = await signInWithRedirect(auth, googleProvider)
   const token  = await result.user.getIdToken(true)
   console.log('Firebase token obtained, length:', token.length)
   return { user: result.user, token }
